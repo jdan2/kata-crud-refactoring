@@ -1,6 +1,7 @@
 package co.com.sofka.crud.controller;
 
-import co.com.sofka.crud.entitys.Todo;
+import co.com.sofka.crud.dto.*;
+import co.com.sofka.crud.services.TodoListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,34 +9,48 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
 
+
     @Autowired
-    private TodoService service;
+    private TodoListServiceImpl service;
+
 
     @GetMapping(value = "api/todos")
-    public Iterable<Todo> list(){
-        return service.list();
+    public Iterable<TodoDTO> list() {
+        return service.listTodos();
     }
-    
-    @PostMapping(value = "api/todo")
-    public Todo save(@RequestBody Todo todo){
-        return service.save(todo);
+
+    @PostMapping(value = "api/todolist")
+    public TodoListDTO saveTodoList(TodoListDTO todoList) {
+        return service.saveList(todoList);
+    }
+
+
+    @GetMapping(value = "api/todolist")
+    public Iterable<TodoListDTO> getTodoList() {
+        return service.listTodoList();
+    }
+
+    @PostMapping(value = "api/{idList}/todo")
+    public TodoDTO save(@PathVariable("idList")Long idList, @RequestBody TodoDTO todo) {
+        return service.addNewToDoByListId(idList,todo);
     }
 
     @PutMapping(value = "api/todo")
-    public Todo update(@RequestBody Todo todo){
-        if(todo.getId() != null){
+    public TodoDTO update(@RequestBody TodoDTO todo) {
+        System.out.println(todo.getName());
+        if (todo.getId() != null) {
             return service.save(todo);
         }
         throw new RuntimeException("No existe el id para actualziar");
     }
 
     @DeleteMapping(value = "api/{id}/todo")
-    public void delete(@PathVariable("id")Long id){
-        service.delete(id);
+    public void delete(@PathVariable("id") Long id) {
+        service.deleteTodo(id);
     }
 
     @GetMapping(value = "api/{id}/todo")
-    public Todo get(@PathVariable("id") Long id){
+    public TodoDTO get(@PathVariable("id") Long id) {
         return service.get(id);
     }
 

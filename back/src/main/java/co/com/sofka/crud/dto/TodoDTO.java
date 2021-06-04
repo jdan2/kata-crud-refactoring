@@ -2,7 +2,6 @@ package co.com.sofka.crud.dto;
 
 public class TodoDTO {
 
-
     private Long id;
     private String name;
     private boolean completed;
