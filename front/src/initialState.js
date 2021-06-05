@@ -1,5 +1,6 @@
 const initialState = {
-    todo: { list: [], item: {} }
+    todo: { list: [], item: {} },
+    todoList: {list:[],item:{}}
   };
 
   export default initialState;
