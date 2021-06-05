@@ -16,6 +16,9 @@ public class TodoListDTO {
         this.toDos = toDos;
     }
 
+    public TodoListDTO() {
+    }
+
     public Long getId() {
         return id;
     }

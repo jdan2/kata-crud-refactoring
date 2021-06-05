@@ -1,9 +1,9 @@
 package co.com.sofka.crud.services;
 
 import co.com.sofka.crud.dto.TodoDTO;
+import co.com.sofka.crud.dto.TodoMapper;
 import co.com.sofka.crud.entitys.Todo;
 import co.com.sofka.crud.dao.TodoRepository;
-import co.com.sofka.crud.entitys.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

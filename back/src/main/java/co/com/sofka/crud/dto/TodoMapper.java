@@ -1,7 +1,6 @@
-package co.com.sofka.crud.entitys;
+package co.com.sofka.crud.dto;
 
 
-import co.com.sofka.crud.dto.TodoDTO;
 import co.com.sofka.crud.entitys.Todo;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

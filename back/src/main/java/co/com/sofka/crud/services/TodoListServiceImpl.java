@@ -4,10 +4,10 @@ import co.com.sofka.crud.dao.TodoListRepository;
 import co.com.sofka.crud.dao.TodoRepository;
 import co.com.sofka.crud.dto.TodoDTO;
 import co.com.sofka.crud.dto.TodoListDTO;
+import co.com.sofka.crud.dto.TodoListMapper;
+import co.com.sofka.crud.dto.TodoMapper;
 import co.com.sofka.crud.entitys.Todo;
 import co.com.sofka.crud.entitys.TodoList;
-import co.com.sofka.crud.entitys.TodoListMapper;
-import co.com.sofka.crud.entitys.TodoMapper;
 import co.com.sofka.crud.exception.customExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,8 +70,9 @@ public class TodoListServiceImpl implements ITodoListService {
     }
 
     @Override
-    public TodoListDTO saveList(TodoListDTO todoList) {
-        return todoListMapper.todoToTodoDTO(todoListRepository.save(todoListMapper.toTodo(todoList)));
+    public TodoListDTO saveList(TodoListDTO todoListDto) {
+        TodoList todoList = todoListRepository.save(todoListMapper.toTodo(todoListDto));
+        return todoListMapper.todoToTodoDTO(todoList);
     }
 
     @Override

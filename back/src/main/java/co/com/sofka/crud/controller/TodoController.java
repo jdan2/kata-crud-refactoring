@@ -13,27 +13,34 @@ public class TodoController {
     @Autowired
     private TodoListServiceImpl service;
 
+    @PostMapping(value = "api/todolist")
+    public TodoListDTO saveTodoList( @RequestBody TodoListDTO todoList) {
+        return service.saveList(todoList);
+    }
+
+    @PostMapping(value = "api/todo")
+    public TodoDTO saveTodo(@RequestBody TodoDTO todo) {
+        if (todo.getName() != null) {
+            return service.save(todo);
+        }
+        throw new RuntimeException("No existe nombre de la tarea para guardar");
+    }
+
+    @PostMapping(value = "api/{idList}/todo")
+    public TodoDTO saveById(@PathVariable("idList")Long idList, @RequestBody TodoDTO todo) {
+        return service.addNewToDoByListId(idList,todo);
+    }
 
     @GetMapping(value = "api/todos")
     public Iterable<TodoDTO> list() {
         return service.listTodos();
     }
 
-    @PostMapping(value = "api/todolist")
-    public TodoListDTO saveTodoList(TodoListDTO todoList) {
-        return service.saveList(todoList);
-    }
-
-
     @GetMapping(value = "api/todolist")
     public Iterable<TodoListDTO> getTodoList() {
         return service.listTodoList();
     }
 
-    @PostMapping(value = "api/{idList}/todo")
-    public TodoDTO save(@PathVariable("idList")Long idList, @RequestBody TodoDTO todo) {
-        return service.addNewToDoByListId(idList,todo);
-    }
 
     @PutMapping(value = "api/todo")
     public TodoDTO update(@RequestBody TodoDTO todo) {
@@ -41,7 +48,7 @@ public class TodoController {
         if (todo.getId() != null) {
             return service.save(todo);
         }
-        throw new RuntimeException("No existe el id para actualziar");
+        throw new RuntimeException("No existe el id para actualizar");
     }
 
     @DeleteMapping(value = "api/{id}/todo")
@@ -53,5 +60,7 @@ public class TodoController {
     public TodoDTO get(@PathVariable("id") Long id) {
         return service.get(id);
     }
+
+
 
 }
